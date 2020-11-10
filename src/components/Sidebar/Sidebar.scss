@@ -5,7 +5,7 @@
 
   @media (min-width: 620px) {
     flex-grow: 0.35;
-    max-width: 500px;
+    // min-width: 400px;
   }
 
   .sidebar__header {
@@ -34,7 +34,7 @@
       justify-content: space-between;
 
       & > .MuiIconButton-root {
-        margin-right: 2vw;
+        margin-right: 5px;
 
         & .MuiSvgIcon-root {
           width: 30px;
