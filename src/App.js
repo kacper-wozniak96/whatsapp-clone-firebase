@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import './App.scss';
 import React, { useEffect } from 'react';
 // import Main from './components/Main';
@@ -13,6 +14,7 @@ function App() {
   // document.documentElement.style.setProperty('--vh', `${vh}px`);
 
   const { windowWidth } = useViewport();
+
   const breakpoint = 620;
 
   const adjustingVh = () => {
@@ -37,16 +39,41 @@ function App() {
     <div className="app">
       <div className="app__body">
         <Router>
-          <Sidebar />
-          {windowWidth < breakpoint ? null : (
+          {windowWidth < breakpoint ? (
             <Switch>
+              <Route exact path="/">
+                <Sidebar />
+              </Route>
               <Route path="/rooms/:roomId">
                 <Chat />
               </Route>
-              <Route path="/" />
             </Switch>
-          )}
+          ) : (
+              <Switch>
+                <Route exact path="/">
+                  <Sidebar />
+                </Route>
+                <Route path="/rooms/:roomId">
+                  <Sidebar />
+                  <Chat />
+                </Route>
+              </Switch>
+            )}
         </Router>
+        {/* {windowWidth < breakpoint && !roomId ? <Sidebar /> : null}
+          {windowWidth < breakpoint && roomId ? (
+            <Route path="/rooms/:roomId">
+              <Chat />
+            </Route>
+          ) : (
+              <Switch>
+                <Route path="/rooms/:roomId">
+                  <Chat />
+                </Route>
+                <Route path="/" />
+              </Switch>
+            )}
+        </Router> */}
       </div>
     </div>
   );

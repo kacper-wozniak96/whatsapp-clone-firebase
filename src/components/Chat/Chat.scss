@@ -1,7 +1,12 @@
 .chat {
-  flex-grow: 0.65;
+  // flex-grow: 0.65;
   display: flex;
   flex-direction: column;
+  flex: 1;
+
+  @media (min-width: 620px) {
+    flex: 0.65;
+  }
 
   .chat__header {
     padding: 20px;

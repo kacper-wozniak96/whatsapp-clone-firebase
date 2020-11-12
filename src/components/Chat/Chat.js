@@ -27,13 +27,17 @@ export default function Chat() {
     }
   }, [roomId]);
 
+  console.log(roomId);
+
   return (
     <div className="chat">
       <div className="chat__header">
         <Avatar />
         <div className="chat__headerInfo">
-          <h3>{roomName}</h3>
-          <p>Last seen at .....</p>
+          <div>
+            <h3>{roomName}</h3>
+            <p>Last seen at .....</p>
+          </div>
         </div>
         <div className="chat__headerRight">
           <IconButton>

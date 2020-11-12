@@ -5,11 +5,17 @@ import { IconButton, Avatar } from '@material-ui/core';
 // import ChatIcon from '@material-ui/icons/Chat';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { SearchOutlined, Chat } from '@material-ui/icons';
+import { useParams } from 'react-router-dom';
 import SidebarChat from './SidebarChat/SidebarChat';
 import db from '../../firebase';
+import { useViewport } from '../../contexts/context';
 
 export default function Sidebar() {
   const [rooms, setRooms] = useState([]);
+  const { windowWidth } = useViewport();
+  const { roomId } = useParams();
+  const breakpoint = 620;
+  // const [sidebarLogic, setSidebarLogic] = useState();
 
   useEffect(() => {
     const unsubscribe = db.collection('rooms').onSnapshot((snapshot) =>
@@ -26,7 +32,23 @@ export default function Sidebar() {
     };
   }, []);
 
-  return (
+  console.log(roomId);
+  // if (typeof roomId === 'undefined') {
+  //   console.log('roomId jest undefined');
+  // }
+
+  // const sidebarLogicFn = () => {
+  //   if ((windowWidth < breakpoint && !roomId) || windowWidth > breakpoint) {
+  //     setSidebarLogic(true);
+  //   } else {
+  //     setSidebarLogic(false);
+  //   }
+  // };
+
+  // sidebarLogicFn();
+
+  // eslint-disable-next-line prettier/prettier
+  return ((windowWidth < breakpoint && typeof roomId === 'undefined') || windowWidth > breakpoint) ? (
     <div className="sidebar">
       <div className="sidebar__header">
         <div className="sidebar__avatar">
@@ -59,5 +81,5 @@ export default function Sidebar() {
         ))}
       </div>
     </div>
-  );
+  ) : null;
 }
