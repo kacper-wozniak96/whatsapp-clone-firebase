@@ -1,11 +1,11 @@
 .app {
-  background-color: #dadbd3;
-  height: 100vh;
-  // height: calc(var(--vh, 1vh) * 100);
+  // height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
 
   @media only screen and (min-width: 620px) {
     display: grid;
     place-items: center;
+    background-color: #dadbd3;
   }
 
   .app__body {
