@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import './Sidebar.scss';
 import DonutLargeIcon from '@material-ui/icons/DonutLarge';
@@ -8,7 +10,8 @@ import { SearchOutlined, Chat } from '@material-ui/icons';
 import { useParams } from 'react-router-dom';
 import SidebarChat from './SidebarChat/SidebarChat';
 import db from '../../firebase';
-import { useViewport } from '../../contexts/context';
+import { useViewport } from '../../contexts/contextViewport';
+import { useStateValue } from '../../contexts/StateProvider';
 
 export default function Sidebar() {
   const [rooms, setRooms] = useState([]);
@@ -16,6 +19,7 @@ export default function Sidebar() {
   const { roomId } = useParams();
   const breakpoint = 620;
   // const [sidebarLogic, setSidebarLogic] = useState();
+  const [{ user }, dispatch] = useStateValue();
 
   useEffect(() => {
     const unsubscribe = db.collection('rooms').onSnapshot((snapshot) =>
@@ -52,7 +56,7 @@ export default function Sidebar() {
     <div className="sidebar">
       <div className="sidebar__header">
         <div className="sidebar__avatar">
-          <Avatar src="" />
+          <Avatar src={user.photoURL} />
         </div>
         <div className="sidebar__headerRight">
           <IconButton>
