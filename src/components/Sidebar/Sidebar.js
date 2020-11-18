@@ -1,10 +1,8 @@
-/* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import './Sidebar.scss';
 import DonutLargeIcon from '@material-ui/icons/DonutLarge';
 import { IconButton, Avatar } from '@material-ui/core';
-// import ChatIcon from '@material-ui/icons/Chat';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { SearchOutlined, Chat } from '@material-ui/icons';
 import { useParams } from 'react-router-dom';
@@ -36,7 +34,7 @@ export default function Sidebar() {
     };
   }, []);
 
-  console.log(roomId);
+  // console.log(roomId);
   // if (typeof roomId === 'undefined') {
   //   console.log('roomId jest undefined');
   // }
