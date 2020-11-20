@@ -1,8 +1,3 @@
-/* eslint-disable no-alert */
-/* eslint-disable no-undef */
-/* eslint-disable no-unused-vars */
-/* eslint-disable prettier/prettier */
-/* eslint-disable no-empty-pattern */
 import { Button } from '@material-ui/core';
 import React from 'react';
 import { actionTypes } from '../../contexts/reducer';
@@ -11,7 +6,8 @@ import { auth, provider } from '../../firebase';
 import './Login.scss';
 
 export default function Login() {
-  const [{ }, dispatch] = useStateValue();
+  // eslint-disable-next-line no-unused-vars
+  const [{ user }, dispatch] = useStateValue();
 
   const signIn = () => {
     auth
@@ -23,8 +19,10 @@ export default function Login() {
           payload: result.user,
         })
       )
+      // eslint-disable-next-line no-alert
       .catch((error) => alert(error.message));
   };
+
   return (
     <div className="login">
       <div className="login__container">

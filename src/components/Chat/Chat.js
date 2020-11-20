@@ -56,7 +56,9 @@ export default function Chat() {
         <div className="chat__headerInfo">
           <div>
             <h3>{roomName}</h3>
-            <p>Last seen at .....</p>
+            <p>
+              last seen {new Date(messages[messages.length - 1]?.timestamp?.toDate()).toUTCString()}{' '}
+            </p>
           </div>
         </div>
         <div className="chat__headerRight">
@@ -82,11 +84,6 @@ export default function Chat() {
             </span>
           </p>
         ))}
-        <p className={`chat__message ${true && `chat__receiver`}`}>
-          <span className="chat__name">Kacper</span>
-          adasd
-          <span className="chat__timestamp">3:52pm</span>
-        </p>
       </div>
 
       <div className="chat__footer">

@@ -2,7 +2,8 @@
   "extends": [
     "airbnb",
     "plugin:prettier/recommended",
-    "prettier/react"
+    "prettier/react",
+    "prettier"
   ],
   "parser": "@babel/eslint-parser",
   "parserOptions": {
@@ -30,7 +31,6 @@
       "warn",
       {
         "code": 100,
-        "tabWidth": 2,
         "comments": 100,
         "ignoreComments": false,
         "ignoreTrailingComments": true,

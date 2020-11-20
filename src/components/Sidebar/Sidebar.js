@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import './Sidebar.scss';
 import DonutLargeIcon from '@material-ui/icons/DonutLarge';
@@ -16,7 +15,7 @@ export default function Sidebar() {
   const { windowWidth } = useViewport();
   const { roomId } = useParams();
   const breakpoint = 620;
-  // const [sidebarLogic, setSidebarLogic] = useState();
+  // eslint-disable-next-line no-unused-vars
   const [{ user }, dispatch] = useStateValue();
 
   useEffect(() => {
@@ -34,28 +33,13 @@ export default function Sidebar() {
     };
   }, []);
 
-  // console.log(roomId);
-  // if (typeof roomId === 'undefined') {
-  //   console.log('roomId jest undefined');
-  // }
-
-  // const sidebarLogicFn = () => {
-  //   if ((windowWidth < breakpoint && !roomId) || windowWidth > breakpoint) {
-  //     setSidebarLogic(true);
-  //   } else {
-  //     setSidebarLogic(false);
-  //   }
-  // };
-
-  // sidebarLogicFn();
-
-  // eslint-disable-next-line prettier/prettier
-  return ((windowWidth < breakpoint && typeof roomId === 'undefined') || windowWidth > breakpoint) ? (
+  return (windowWidth < breakpoint && typeof roomId === 'undefined') || windowWidth > breakpoint ? (
     <div className="sidebar">
       <div className="sidebar__header">
         <div className="sidebar__avatar">
           <Avatar src={user.photoURL} />
         </div>
+        <p>{`Logged as ${user.displayName}`}</p>
         <div className="sidebar__headerRight">
           <IconButton>
             <DonutLargeIcon />

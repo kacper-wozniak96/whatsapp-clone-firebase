@@ -1,8 +1,5 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable prettier/prettier */
 import './App.scss';
-import React, { useEffect, useState } from 'react';
-// import Main from './components/Main';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { useViewport } from './contexts/contextViewport';
 import Sidebar from './components/Sidebar/Sidebar';
@@ -11,9 +8,9 @@ import Login from './components/Login/Login';
 import { useStateValue } from './contexts/StateProvider';
 
 function App() {
-
   const { windowWidth } = useViewport();
   const breakpoint = 620;
+  // eslint-disable-next-line no-unused-vars
   const [{ user }, dispatch] = useStateValue();
   const adjustingVh = () => {
     const vh = window.innerHeight * 0.01;
@@ -27,8 +24,7 @@ function App() {
     return () => window.removeEventListener('resize', adjustingVh);
   }, []);
 
-
-
+  // prettier-ignore
   return (
     <div className="app">
       {!user ? (
@@ -57,20 +53,6 @@ function App() {
                   </Switch>
                 )}
             </Router>
-            {/* {windowWidth < breakpoint && !roomId ? <Sidebar /> : null}
-          {windowWidth < breakpoint && roomId ? (
-            <Route path="/rooms/:roomId">
-              <Chat />
-            </Route>
-          ) : (
-              <Switch>
-                <Route path="/rooms/:roomId">
-                  <Chat />
-                </Route>
-                <Route path="/" />
-              </Switch>
-            )}
-        </Router> */}
           </div>
         )}
     </div>
