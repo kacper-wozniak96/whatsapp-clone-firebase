@@ -19,11 +19,11 @@ export default function SidebarChat({ addNewChat, name, id }) {
         setMessages(snapshot.docs.map((doc) => doc.data()))
       ))
     }
-  })
+  }, [id])
 
   useEffect(() => {
     setSeed(Math.floor(Math.random() * 5000));
-  }, [id]);
+  }, []);
 
   const createChat = () => {
     const roomName = prompt("Yo enter name");

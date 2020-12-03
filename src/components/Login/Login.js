@@ -1,7 +1,7 @@
 import { Button } from '@material-ui/core';
 import React from 'react';
-import { actionTypes } from '../../contexts/reducer';
-import { useStateValue } from '../../contexts/StateProvider';
+import { actionTypes } from '../../contexts/contextUser/reducer';
+import { useStateValue } from '../../contexts/contextUser/UserStateProvider';
 import { auth, provider } from '../../firebase';
 import './Login.scss';
 

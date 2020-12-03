@@ -3,15 +3,14 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import { ViewportProvider } from './contexts/contextViewport';
-import { StateProvider } from './contexts/StateProvider';
-import reducer, { initialState } from './contexts/reducer';
+import { UserStateProvider } from './contexts/contextUser/UserStateProvider';
 
 ReactDOM.render(
   <React.StrictMode>
     <ViewportProvider>
-      <StateProvider initialState={initialState} reducer={reducer}>
+      <UserStateProvider>
         <App />
-      </StateProvider>
+      </UserStateProvider>
     </ViewportProvider>
   </React.StrictMode>,
   document.getElementById('root')

@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom';
 import firebase from 'firebase';
 import db from '../../firebase';
 import './Chat.scss';
-import { useStateValue } from '../../contexts/StateProvider';
+import { useStateValue } from '../../contexts/contextUser/UserStateProvider';
 
 export default function Chat() {
   const [input, setInput] = useState('');
@@ -28,27 +28,64 @@ export default function Chat() {
     setInput('');
   };
 
-  useEffect(() => {
-    if (roomId) {
-      db.collection('rooms')
-        .doc(roomId)
-        .onSnapshot((snapshot) => {
-          setRoomName(snapshot.data().name);
-        });
+  // useEffect(() => {
+  //   if (roomId) {
+  //     db.collection('rooms')
+  //       .doc(roomId)
+  //       .onSnapshot((snapshot) => {
+  //         setRoomName(snapshot.data().name);
+  //       });
 
-      db.collection('rooms')
-        .doc(roomId)
-        .collection('messages')
-        .orderBy('timestamp', 'asc')
-        .onSnapshot((snapshot) => {
-          // console.log(snapshot.docs);
-          setMessages(snapshot.docs.map((doc) => doc.data()));
-        });
-    }
+  //     db.collection('rooms')
+  //       .doc(roomId)
+  //       .collection('messages')
+  //       .orderBy('timestamp', 'asc')
+  //       .onSnapshot((snapshot) => {
+  //         // console.log(snapshot.docs);
+  //         setMessages(snapshot.docs.map((doc) => doc.data()));
+  //       });
+  //   }
+  // }, [roomId]);
+
+  useEffect(() => {
+    db.collection('rooms')
+      .doc(roomId)
+      .collection('messages')
+      .orderBy('timestamp', 'asc')
+      .onSnapshot((snapshot) => {
+        setMessages(
+          snapshot.docs.map((doc) => ({
+            message: doc.data().message,
+            timestamp: doc.data().timestamp,
+            name: doc.data().name,
+          }))
+        );
+      });
   }, [roomId]);
 
-  // console.log(roomId);
-  // console.log(messages);
+  useEffect(() => {
+    db.collection('rooms')
+      .doc(roomId)
+      .get()
+      .then(function (doc) {
+        if (doc.exists) {
+          setRoomName(doc.data().name);
+        } else {
+          console.log('No such document!');
+        }
+      })
+      .catch(function (error) {
+        console.log('Error getting document:', error);
+      });
+  }, [roomId]);
+
+  useEffect(() => {
+    const objDiv = document.getElementById('chat');
+    objDiv.scrollTop = objDiv.scrollHeight;
+  }, [messages]);
+
+  // console.log(user);
+
   return (
     <div className="chat">
       <div className="chat__header">
@@ -57,7 +94,8 @@ export default function Chat() {
           <div>
             <h3>{roomName}</h3>
             <p>
-              last seen {new Date(messages[messages.length - 1]?.timestamp?.toDate()).toUTCString()}{' '}
+              Last seen message at{' '}
+              {new Date(messages[messages.length - 1]?.timestamp?.toDate()).toUTCString()}{' '}
             </p>
           </div>
         </div>
@@ -74,7 +112,7 @@ export default function Chat() {
         </div>
       </div>
 
-      <div className="chat__body">
+      <div className="chat__body" id="chat">
         {messages.map((message) => (
           <p className={`chat__message ${message.name === user.displayName && `chat__receiver`}`}>
             <span className="chat__name">{message.name}</span>

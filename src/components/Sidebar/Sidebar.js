@@ -8,7 +8,7 @@ import { useParams } from 'react-router-dom';
 import SidebarChat from './SidebarChat/SidebarChat';
 import db from '../../firebase';
 import { useViewport } from '../../contexts/contextViewport';
-import { useStateValue } from '../../contexts/StateProvider';
+import { useStateValue } from '../../contexts/contextUser/UserStateProvider';
 
 export default function Sidebar() {
   const [rooms, setRooms] = useState([]);
@@ -39,7 +39,6 @@ export default function Sidebar() {
         <div className="sidebar__avatar">
           <Avatar src={user.photoURL} />
         </div>
-        <p>{`Logged as ${user.displayName}`}</p>
         <div className="sidebar__headerRight">
           <IconButton>
             <DonutLargeIcon />

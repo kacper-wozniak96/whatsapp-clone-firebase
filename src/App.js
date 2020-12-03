@@ -5,11 +5,13 @@ import { useViewport } from './contexts/contextViewport';
 import Sidebar from './components/Sidebar/Sidebar';
 import Chat from './components/Chat/Chat';
 import Login from './components/Login/Login';
-import { useStateValue } from './contexts/StateProvider';
+import { useStateValue } from './contexts/contextUser/UserStateProvider';
 
 function App() {
-  const { windowWidth } = useViewport();
-  const breakpoint = 620;
+  const { windowWidth, breakpoint } = useViewport();
+  console.log(windowWidth);
+  console.log(breakpoint);
+  // const breakpoint = 620;
   // eslint-disable-next-line no-unused-vars
   const [{ user }, dispatch] = useStateValue();
   const adjustingVh = () => {
