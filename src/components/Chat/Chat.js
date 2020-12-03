@@ -1,12 +1,13 @@
 /* eslint-disable no-unused-vars */
 import { Avatar, IconButton } from '@material-ui/core';
-import { AttachFile, InsertEmoticon, Mic, MoreVert, Search } from '@material-ui/icons';
+import { AttachFile, InsertEmoticon, Mic, MoreVert, Search, ExitToApp } from '@material-ui/icons';
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import firebase from 'firebase';
 import db from '../../firebase';
 import './Chat.scss';
 import { useStateValue } from '../../contexts/contextUser/UserStateProvider';
+import { useViewport } from '../../contexts/contextViewport';
 
 export default function Chat() {
   const [input, setInput] = useState('');
@@ -14,6 +15,7 @@ export default function Chat() {
   const [roomName, setRoomName] = useState('');
   const [messages, setMessages] = useState([]);
   const [{ user }, dispatch] = useStateValue();
+  const { windowWidth, breakpoint } = useViewport();
 
   const sendMessage = (e) => {
     e.preventDefault();
@@ -89,23 +91,24 @@ export default function Chat() {
   return (
     <div className="chat">
       <div className="chat__header">
+        {windowWidth < breakpoint && (
+          <Link to="/">
+            <IconButton>
+              <ExitToApp className="chat__exit-button" />
+            </IconButton>
+          </Link>
+        )}
         <Avatar />
         <div className="chat__headerInfo">
           <div>
             <h3>{roomName}</h3>
-            <p>
+            {/* <p>
               Last seen message at{' '}
               {new Date(messages[messages.length - 1]?.timestamp?.toDate()).toUTCString()}{' '}
-            </p>
+            </p> */}
           </div>
         </div>
         <div className="chat__headerRight">
-          <IconButton>
-            <Search />
-          </IconButton>
-          <IconButton>
-            <AttachFile />
-          </IconButton>
           <IconButton>
             <MoreVert />
           </IconButton>
