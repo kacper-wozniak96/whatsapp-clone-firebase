@@ -9,8 +9,8 @@ import { useStateValue } from './contexts/contextUser/UserStateProvider';
 
 function App() {
   const { windowWidth, breakpoint } = useViewport();
-  console.log(windowWidth);
-  console.log(breakpoint);
+  // console.log(windowWidth);
+  // console.log(breakpoint);
   // const breakpoint = 620;
   // eslint-disable-next-line no-unused-vars
   const [{ user }, dispatch] = useStateValue();

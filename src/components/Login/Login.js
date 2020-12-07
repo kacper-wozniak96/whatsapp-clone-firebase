@@ -11,24 +11,28 @@ export default function Login() {
   const [{ user }, dispatch] = useStateValue();
   // eslint-disable-next-line no-unused-vars
   const { windowWidth, breakpoint } = useViewport();
+  let token = '';
 
   const signIn = () => {
     if (windowWidth > 1200) {
       auth
         .signInWithPopup(provider)
-        .then((result) =>
+        .then((result) => {
           // console.log(result)
+          token = result.credential.accessToken;
           dispatch({
             type: actionTypes.SET_USER,
             payload: result.user,
-          })
-        )
+          });
+        })
         // eslint-disable-next-line no-alert
         .catch((error) => alert(error.message));
     } else {
       auth.signInWithRedirect(provider);
     }
   };
+
+  console.log(token);
 
   const initApp = () => {
     auth

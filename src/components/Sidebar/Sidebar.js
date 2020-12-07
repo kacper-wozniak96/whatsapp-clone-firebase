@@ -6,7 +6,7 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { SearchOutlined, Chat } from '@material-ui/icons';
 import { useParams } from 'react-router-dom';
 import SidebarChat from './SidebarChat/SidebarChat';
-import db from '../../firebase';
+import db, { auth } from '../../firebase';
 import { useViewport } from '../../contexts/contextViewport';
 import { useStateValue } from '../../contexts/contextUser/UserStateProvider';
 
@@ -32,6 +32,8 @@ export default function Sidebar() {
       return unsubscribe();
     };
   }, []);
+
+  console.log(auth.currentUser.uid);
 
   return (windowWidth < breakpoint && typeof roomId === 'undefined') || windowWidth > breakpoint ? (
     <div className="sidebar">

@@ -4,7 +4,7 @@ import { AttachFile, InsertEmoticon, Mic, MoreVert, Search, ExitToApp } from '@m
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import firebase from 'firebase';
-import db from '../../firebase';
+import db, { auth } from '../../firebase';
 import './Chat.scss';
 import { useStateValue } from '../../contexts/contextUser/UserStateProvider';
 import { useViewport } from '../../contexts/contextViewport';
@@ -25,6 +25,7 @@ export default function Chat() {
       name: user.displayName,
       message: input,
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+      uid: auth.currentUser.uid,
     });
 
     setInput('');
@@ -60,6 +61,7 @@ export default function Chat() {
             message: doc.data().message,
             timestamp: doc.data().timestamp,
             name: doc.data().name,
+            uid: doc.data().uid,
           }))
         );
       });
@@ -117,7 +119,9 @@ export default function Chat() {
 
       <div className="chat__body" id="chat">
         {messages.map((message) => (
-          <p className={`chat__message ${message.name === user.displayName && `chat__receiver`}`}>
+          <p
+            className={`chat__message ${message.uid === auth.currentUser.uid && `chat__receiver`}`}
+          >
             <span className="chat__name">{message.name}</span>
             {message.message}
             <span className="chat__timestamp">
