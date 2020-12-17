@@ -17,23 +17,27 @@ export default function Sidebar() {
   const breakpoint = 620;
   // eslint-disable-next-line no-unused-vars
   const [{ user }, dispatch] = useStateValue();
+  const [inputSearch, setInputSearch] = useState('');
 
   useEffect(() => {
     const unsubscribe = db.collection('rooms').onSnapshot((snapshot) =>
       setRooms(
-        snapshot.docs.map((doc) => ({
-          id: doc.id,
-          data: doc.data(),
-        }))
+        snapshot.docs
+          .filter((doc) => doc.data().name.toLowerCase().indexOf(inputSearch.toLowerCase()) !== -1)
+          .map((doc) => ({
+            id: doc.id,
+            data: doc.data(),
+          }))
       )
     );
 
     return () => {
       return unsubscribe();
     };
-  }, []);
+  }, [inputSearch]);
 
   console.log(auth.currentUser.uid);
+  console.log(inputSearch);
 
   return (windowWidth < breakpoint && typeof roomId === 'undefined') || windowWidth > breakpoint ? (
     <div className="sidebar">
@@ -57,7 +61,11 @@ export default function Sidebar() {
       <div className="sidebar__search">
         <div className="sidebar__searchContainer">
           <SearchOutlined />
-          <input type="text" placeholder="Search or start new chat" />
+          <input
+            type="text"
+            placeholder="Search or start new chat"
+            onChange={(e) => setInputSearch(e.target.value)}
+          />
         </div>
       </div>
 
